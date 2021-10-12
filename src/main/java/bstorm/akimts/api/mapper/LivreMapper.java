@@ -4,6 +4,7 @@ import bstorm.akimts.api.models.dto.LivreDTO;
 import bstorm.akimts.api.models.entity.Auteur;
 import bstorm.akimts.api.models.entity.Livre;
 import bstorm.akimts.api.models.form.LivreForm;
+import bstorm.akimts.api.models.form.LivreUpdateForm;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.parser.Entity;
@@ -37,6 +38,17 @@ public class LivreMapper {
 
         Livre livre = new Livre();
         livre.setIsbn(form.getIsbn());
+        livre.setTitre(form.getTitre());
+        livre.setPrix(form.getPrix());
+
+        return livre;
+    }
+
+    public Livre updateFormToEntity(LivreUpdateForm form){
+        if( form == null )
+            return null;
+
+        Livre livre = new Livre();
         livre.setTitre(form.getTitre());
         livre.setPrix(form.getPrix());
 

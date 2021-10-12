@@ -24,6 +24,6 @@ public class Livre {
     @Column(nullable = false, columnDefinition = "DECIMAL(10,2)")
     private double prix;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Auteur> auteurs;
 }
