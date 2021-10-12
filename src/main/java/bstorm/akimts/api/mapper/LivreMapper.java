@@ -3,8 +3,10 @@ package bstorm.akimts.api.mapper;
 import bstorm.akimts.api.models.dto.LivreDTO;
 import bstorm.akimts.api.models.entity.Auteur;
 import bstorm.akimts.api.models.entity.Livre;
+import bstorm.akimts.api.models.form.LivreForm;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +28,19 @@ public class LivreMapper {
                                 .collect(Collectors.toList())
                 )
                 .build();
+    }
+
+
+    public Livre formToEntity(LivreForm form){
+        if( form == null )
+            return null;
+
+        Livre livre = new Livre();
+        livre.setIsbn(form.getIsbn());
+        livre.setTitre(form.getTitre());
+        livre.setPrix(form.getPrix());
+
+        return livre;
     }
 
     private LivreDTO.AuteurDTO toInnerDto(Auteur auteur){
