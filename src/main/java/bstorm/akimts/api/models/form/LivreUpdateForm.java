@@ -18,6 +18,6 @@ public class LivreUpdateForm {
     @Min(0)
     private double prix;
     @NotEmpty
-    private List<Long> auteurIds;
+    private List<Long> auteurs;
 
 }

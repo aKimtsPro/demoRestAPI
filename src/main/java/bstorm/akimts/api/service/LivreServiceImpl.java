@@ -80,7 +80,7 @@ public class LivreServiceImpl implements LivreService{
 
         toUpdate.setPrix(form.getPrix());
         toUpdate.setTitre(form.getTitre());
-        Set<Auteur> auteurs = form.getAuteurIds()
+        Set<Auteur> auteurs = form.getAuteurs()
                 .stream()
                 .map(id -> auteurRepository.findById(id)
                         .orElseThrow(ElementNotFoundException::new))
