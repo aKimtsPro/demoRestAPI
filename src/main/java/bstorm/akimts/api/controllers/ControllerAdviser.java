@@ -2,6 +2,7 @@ package bstorm.akimts.api.controllers;
 
 import bstorm.akimts.api.exceptions.ElementAlreadyExistsException;
 import bstorm.akimts.api.exceptions.ElementNotFoundException;
+import bstorm.akimts.api.exceptions.RoleInvalidException;
 import bstorm.akimts.api.models.dto.ErrorDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,13 @@ public class ControllerAdviser extends ResponseEntityExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body( new ErrorDTO(ex.getMessage()));
+    }
+
+    @ExceptionHandler( RoleInvalidException.class )
+    public ResponseEntity<ErrorDTO> handle(RoleInvalidException ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorDTO(ex.getMessage()));
     }
 
 //    @ExceptionHandler( MethodArgumentNotValidException.class )

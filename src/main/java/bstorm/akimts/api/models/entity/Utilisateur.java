@@ -34,13 +34,13 @@ public class Utilisateur implements UserDetails {
 
 
     @Column(nullable = false)
-    private boolean accountNonExpired;
+    private boolean accountNonExpired = true;
     @Column(nullable = false)
-    private boolean accountNonLocked;
+    private boolean accountNonLocked = true;
     @Column(nullable = false)
-    private boolean credentialsNonExpired;
+    private boolean credentialsNonExpired = true;
     @Column(nullable = false)
-    private boolean enabled;
+    private boolean enabled = true;
 
 
     @Override

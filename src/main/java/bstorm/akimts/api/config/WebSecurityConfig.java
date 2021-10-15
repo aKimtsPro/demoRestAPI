@@ -41,6 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/livre/**").hasAuthority("ADMIN")
                 // Pour les auteurs
                 .antMatchers(HttpMethod.GET, "/auteur/**").hasAuthority("USER")
+                // Pour les utilisateurs
+                .antMatchers("/user/**").hasAuthority("ADMIN")
+                // Pour le reste
                 .anyRequest().permitAll();
 
         // pour H2
