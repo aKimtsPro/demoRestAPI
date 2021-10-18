@@ -2,6 +2,7 @@ package bstorm.akimts.api.config;
 
 import bstorm.akimts.api.security.JwtAuthorizationFilter;
 import bstorm.akimts.api.security.JwtProvider;
+import bstorm.akimts.api.security.SecurityConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -54,8 +55,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/auteur/**").hasAuthority("USER")
                 // Pour les utilisateurs
                 .antMatchers("/user/**").hasAuthority("ADMIN")
+                // Login
+                .antMatchers(SecurityConstants.LOGIN_URL).permitAll()
                 // Pour le reste
-                .anyRequest().permitAll();
+                .anyRequest().authenticated();
 
 
         // pour H2
@@ -63,8 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .frameOptions()
                 .disable();
     }
-
-
 
     @Bean
     @Override

@@ -1,5 +1,6 @@
 package bstorm.akimts.api.security;
 
+import static bstorm.akimts.api.security.SecurityConstants.*;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -27,18 +28,18 @@ public class JwtProvider {
     public String createToken(String username, List<String> roles){
         String token = JWT.create()
                 .withSubject(username)
-                .withExpiresAt( new Date(System.currentTimeMillis() + 86_400_000) )
+                .withExpiresAt( new Date(System.currentTimeMillis() + EXPIRATION_TIME) )
                 .withClaim("roles", roles)
-                .sign( Algorithm.HMAC512("m@_Cl3f_D'3nCrYP710n") );
+                .sign( Algorithm.HMAC512(JWT_KEY) );
 
-        return "Bearer " + token;
+        return TOKEN_PREFIX + token;
     }
 
     public String resolveToken( HttpServletRequest request ){
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader(HEADER_KEY);
 
-        if( token != null && token.startsWith("Bearer ") ){
-            return token.substring(6);
+        if( token != null && token.startsWith(TOKEN_PREFIX) ){
+            return token.substring(TOKEN_PREFIX.length());
         }
 
         return null;
@@ -48,7 +49,7 @@ public class JwtProvider {
 
         try{
             // Verification de la signature
-            DecodedJWT decodedJWT = JWT.require( Algorithm.HMAC512("m@_Cl3f_D'3nCrYP710n") )
+            DecodedJWT decodedJWT = JWT.require( Algorithm.HMAC512(JWT_KEY) )
                     .build()
                     .verify( token );
 
